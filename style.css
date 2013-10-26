@@ -43,7 +43,7 @@ html{
 
 #cssmenu li a {
     background:  #121111;
-    border-right: #670101 solid 2px;
+    border-left: #670101 solid 2px;
     display: block;
     font-weight: normal;
     line-height: 35px;
