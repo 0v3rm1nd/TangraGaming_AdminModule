@@ -6,7 +6,7 @@ $conn = dbConnect('write');
 $col = 'email';
 $dir = 'ASC';
 // create arrays of permitted values
-$columns = array('email','nickname','salt', 'password');
+$columns = array('email','nickname','lastlogin', 'datecreated');
 $direction = array('ASC', 'DESC');
 // if the form has been submitted, use only expected values
 if (isset($_GET['column']) && in_array($_GET['column'], $columns)) {
@@ -16,7 +16,7 @@ if (isset($_GET['direction']) && in_array($_GET['direction'], $direction)) {
   $dir = $_GET['direction'];
 }
 // prepare the SQL query
-$sql = "SELECT email, nickname, salt, password FROM user
+$sql = "SELECT email, nickname, lastlogin, datecreated FROM user
         ORDER BY $col $dir";
 // submit the query and capture the result
 $result = $conn->query($sql) or die($conn->error);
@@ -27,8 +27,8 @@ $result = $conn->query($sql) or die($conn->error);
   <select name="column" id="column">
     <option value="email" <?php if ($col == 'email') echo 'selected'; ?>>Email</option>
     <option value="nickname" <?php if ($col == 'nickname') echo 'selected'; ?>>Nickname</option>
-    <option value="salt" <?php if ($col == 'salt') echo 'selected'; ?>>Salt</option>
-    <option value="password" <?php if ($col == 'password') echo 'selected'; ?>>Password</option>
+    <option value="lastlogin" <?php if ($col == 'lastlogin') echo 'selected'; ?>>Last Login</option>
+    <option value="datecreated" <?php if ($col == 'datecreated') echo 'selected'; ?>>Date Created</option>
   </select>
   <select name="direction" id="direction">
     <option value="ASC" <?php if ($dir == 'ASC') echo 'selected'; ?>>Ascending</option>
@@ -43,8 +43,8 @@ $result = $conn->query($sql) or die($conn->error);
   <tr>
     <th>Email</th>
     <th>Nickname</th>
-    <th>Salt</th>
-    <th>Password</th>
+    <th>Last Login</th>
+    <th>Date Created</th>
     <th></th>
     <th></th>
  </tr>
@@ -52,8 +52,8 @@ $result = $conn->query($sql) or die($conn->error);
   <tr>
 	<td><?php echo $row['email']; ?></td>
     <td><?php echo $row['nickname']; ?></td>    
-    <td><?php echo $row['salt']; ?></td>
-    <td><?php echo $row['password']; ?></td>
+    <td><?php echo $row['lastlogin']; ?></td>
+    <td><?php echo $row['datecreated']; ?></td>
     <td><a href="../../includes/update_user_mysqli.inc.php?email=<?php echo $row['email']; ?>">EDIT</a></td>
     <td><a href="../../includes/delete_user_mysqli.inc.php?email=<?php echo $row['email']; ?>">DELETE</a></td>
   </tr>
