@@ -30,7 +30,7 @@ if ($password != $retyped) {
 }
 if (!$errors) {
   // include the connection file
-  require_once('connection.inc.php');
+  require_once('../../includes/connection.inc.php');
   $conn = dbConnect('write');
   // create a salt using the current timestamp
   $salt = time();
@@ -47,7 +47,7 @@ if (!$errors) {
   if ($stmt->affected_rows == 1) {
 	$success = "$nickname has been registered and it is now usable";
   } elseif ($stmt->errno == 1062) {
-	$errors[] = "$email is already in use. Please choose another username.";
+	$errors[] = "Email:$email or Nickname:$nickname  is already in use.";
   } else {
 	$errors[] = 'Sorry, there was a problem with the database.';
   }

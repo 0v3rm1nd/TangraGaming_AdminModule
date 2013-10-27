@@ -11,6 +11,7 @@ html{
     width: 1100px; 
     margin: 0 auto; 
     margin-top:30px;
+    color:#900;
 
 
 }
@@ -20,10 +21,10 @@ html{
 #cssmenu{
     border: none;
     border:#670101 solid 2px;
-    margin: 5px;
+    margin: 10px;
     padding: 0px;
     font: 67.5% 'Lucida Sans Unicode', 'Bitstream Vera Sans', 'Trebuchet Unicode MS', 'Lucida Grande', Verdana, Helvetica, sans-serif;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: bold;
     width: auto;
 

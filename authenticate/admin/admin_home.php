@@ -5,11 +5,11 @@ require_once('../../includes/session_timeout_db.inc.php');
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>TangraGaming</title>
+<title>Tangra Gaming Home</title>
 <link rel="stylesheet" type="text/css" href="../../style.css" />
 </head>
 
-<body class="no-js">
+<body>
 
 <div id="allcontent">
 
