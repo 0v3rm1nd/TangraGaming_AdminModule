@@ -17,19 +17,21 @@ require_once('../../includes/session_timeout_db.inc.php');
                 <?php include('../../includes/menu.inc.php'); ?>
             </div>
             <div id="maincontent">
-            <h1>
-                Alter Users
-            </h1>
-            <h3>
-                List of users:
-            </h3>
-            <?php
-            require_once('../../includes/admin/user/search_user.inc.php');
-            ?>
+                <h1>
+                    Alter Users
+                </h1>
+                <h3>
+                    List of users:
+                </h3>
+                <?php
+                require_once('../../includes/admin/user/search_user.inc.php');
+                ?>
             </div>
+            <div id="footer">
+                <?php include('../../includes/footer.inc.php'); ?>
+            </div>
+
+        </div>
     </body>
-    <div id="footer">
-        <?php include('../../includes/footer.inc.php'); ?>
-    </div>
-</div>
+
 </html>
