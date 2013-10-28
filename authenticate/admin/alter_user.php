@@ -16,6 +16,7 @@ require_once('../../includes/session_timeout_db.inc.php');
             <div id="cssmenu">
                 <?php include('../../includes/menu.inc.php'); ?>
             </div>
+            <div id="maincontent">
             <h1>
                 Alter Users
             </h1>
@@ -25,6 +26,7 @@ require_once('../../includes/session_timeout_db.inc.php');
             <?php
             require_once('../../includes/admin/user/search_user.inc.php');
             ?>
+            </div>
     </body>
     <div id="footer">
         <?php include('../../includes/footer.inc.php'); ?>
