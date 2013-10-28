@@ -1,18 +1,15 @@
 <?php
 require_once('../../includes/session_timeout_db.inc.php');
 if (isset($_POST['create'])) {
-    $email = trim($_POST['email']);
-    $nickname = trim($_POST['nickname']);
-    $password = trim($_POST['pwd']);
-    $retyped = trim($_POST['conf_pwd']);
-    require_once('../../includes/admin/user/register_user_mysqli.inc.php');
+    $mainroom = trim($_POST['mainroom']);
+    require_once('../../includes/admin/mainroom/create_mainroom_mysqli.inc.php');
 }
 ?>
 <!DOCTYPE HTML>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Tangra Create User</title>
+        <title>Tangra Create Main Room</title>
         <link rel="stylesheet" type="text/css" href="../../style.css" />
         <link rel="stylesheet" type="text/css" href="../../css/formcss/style.css" />
         <link rel="stylesheet" type="text/css" href="../../css/formcss/demo.css" />
@@ -27,7 +24,7 @@ if (isset($_POST['create'])) {
                 <?php include('../../includes/menu.inc.php'); ?>
             </div>
 
-            <!-- RegisterUserForm -->
+            <!-- CreateMainRoomForm -->
             <div class="container">
 
                 <section>				
@@ -38,7 +35,7 @@ if (isset($_POST['create'])) {
                             <div id="login" class="animate form">
                                 <form id="form1" method="post" action="">
 
-                                    <h1>Create User</h1>
+                                    <h1>Create Main Room</h1>
                                     <?php
                                     if (isset($success)) {
                                         echo "<p id='email'>$success</p>";
@@ -51,25 +48,13 @@ if (isset($_POST['create'])) {
                                     }
                                     ?>
                                     <p>
-                                        <label for="email" class="uname" data-icon="u" > User email</label>
-                                        <input id="username" name="email" required type="text" placeholder="Fill in user email">
+                                        <label for="mainroom"> Main Room Name</label>
+                                        <input id="mainroom" name="mainroom" required type="text" placeholder="Fill in main room name">
                                     </p>
-                                    <p>
-                                        <label for="nickname" class="uname" data-icon="u" > Nickname </label>
-                                        <input type="text" name="nickname" id="nickname" required placeholder="Fill in user nickname">
-                                    </p>
-
-                                    <p>
-                                        <label for="pwd" class="youpasswd" data-icon="p"> User password </label>
-                                        <input type="password" name="pwd" id="pwd" required placeholder="Fill in user password">
-                                    </p>
-                                    <p>
-                                        <label for="conf_pwd" class="youpasswd" data-icon="p"> Confirm password </label>
-                                        <input type="password" name="conf_pwd" id="conf_pwd" required placeholder="Retype user password">
-                                    </p>    
+                      
 
                                     <p class="login button">
-                                        <input name="create" type="submit"  value="Create User">
+                                        <input name="create" type="submit"  value="Create">
                                     </p> 
                                 </form>
                             </div>

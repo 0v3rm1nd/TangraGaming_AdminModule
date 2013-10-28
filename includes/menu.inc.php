@@ -9,15 +9,15 @@
    </li>
    <li class='active'><a href='../../authenticate/admin/admin_home.php'><span>Room Management</span></a>
       <ul>
-         <li><a href='#'><span>Create Room</span></a></li>
-         <li><a href='#'><span>Alter Room</span></a></li>
+         <li><a href='../../authenticate/admin/create_room.php'><span>Create Room</span></a></li>
+         <li><a href=''><span>Alter Room</span></a></li>
          <li class='last'><a href='#'><span>Room Statistics</span></a></li>
       </ul>
    </li>
    <li class='active'><a href='../../authenticate/admin/admin_home.php'><span>Main Room Management</span></a>
       <ul>
-         <li><a href='#'><span>Create Main Room</span></a></li>
-         <li><a href='#'><span>Alter Main Room</span></a></li>
+         <li><a href='../../authenticate/admin/create_mainroom.php'><span>Create Main Room</span></a></li>
+         <li><a href='../../authenticate/admin/alter_mainroom.php'><span>Alter Main Room</span></a></li>
          <li class='last'><a href='#'><span>Main Room Statistics</span></a></li>
       </ul>
    </li>
