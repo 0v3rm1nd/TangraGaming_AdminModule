@@ -36,13 +36,16 @@ if (!$errors) {
   $salt = time();
   // encrypt the password and salt with SHA1
   $pwd = sha1($password . $salt);
+  //generate the timestamp to update the dateupdated field in the mysql database via the prepared statement
+$date = new DateTime();
+$datecreated = $date->format('Y-m-d H:i:s');
   // prepare SQL statement
-  $sql = 'INSERT INTO user ( email, nickname, salt, password)
-          VALUES (?, ?, ?, ?)';
+  $sql = 'INSERT INTO user ( email, nickname, salt, password, datecreated)
+          VALUES (?, ?, ?, ?, ?)';
   $stmt = $conn->stmt_init();
   $stmt = $conn->prepare($sql);
   // bind parameters and insert the details into the database
-  $stmt->bind_param('ssis',$email, $nickname, $salt, $pwd);
+  $stmt->bind_param('ssiss',$email, $nickname, $salt, $pwd, $datecreated);
   $stmt->execute();
   if ($stmt->affected_rows == 1) {
 	$success = "$nickname has been registered and it is now usable";

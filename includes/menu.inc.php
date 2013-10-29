@@ -10,7 +10,7 @@
    <li class='active'><a href='../../authenticate/admin/admin_home.php'><span>Room Management</span></a>
       <ul>
          <li><a href='../../authenticate/admin/create_room.php'><span>Create Room</span></a></li>
-         <li><a href=''><span>Alter Room</span></a></li>
+         <li><a href='../../authenticate/admin/alter_room.php'><span>Alter Room</span></a></li>
          <li class='last'><a href='#'><span>Room Statistics</span></a></li>
       </ul>
    </li>

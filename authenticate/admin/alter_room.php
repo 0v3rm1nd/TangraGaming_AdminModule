@@ -5,7 +5,7 @@ require_once('../../includes/session_timeout_db.inc.php');
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Tangra Alter Main Room</title>
+        <title>Tangra Alter Room</title>
         <link rel="stylesheet" type="text/css" href="../../style.css" />
     </head>
     <body>
@@ -18,13 +18,13 @@ require_once('../../includes/session_timeout_db.inc.php');
             </div>
             <div id="maincontent">
                 <h1>
-                    Alter Main Room
+                    Alter Room
                 </h1>
                 <h3>
-                    List of main rooms:
+                    List of rooms:
                 </h3>
                 <?php
-                require_once('../../includes/admin/mainroom/search_mainroom.inc.php');
+                require_once('../../includes/admin/room/search_room.inc.php');
                 ?>
             </div>
             <div id="footer">

@@ -10,12 +10,12 @@ $stmt = $conn->stmt_init();
 // get details of selected record
 if (isset($_GET['name']) && !$_POST) {
 // prepare SQL query
-    $sql = 'SELECT name FROM mainroom WHERE name = ?';
+    $sql = 'SELECT name, dateupdated FROM mainroom WHERE name = ?';
     if ($stmt->prepare($sql)) {
 // bind the query parameter
         $stmt->bind_param('s', $_GET['name']);
 // bind the results to variables
-        $stmt->bind_result($mainroomname);
+        $stmt->bind_result($mainroomname, $dateupdated);
 // execute the query, and fetch the result
         $OK = $stmt->execute();
         $stmt->fetch();
@@ -69,6 +69,11 @@ if (isset($_POST['update'])) {
                                 }
                                 ?>
                                 <form id="form1" method="post" action="">
+                                    
+                                    <p id="email">
+                           
+                                        Last Update: <?php echo "$dateupdated"; ?>
+                                    </p>
 
                                     <p>
                                         <input type="hidden" name="oldmainroomname" id="oldmainroomname" value="<?php echo htmlentities($mainroomname, ENT_COMPAT, 'utf-8'); ?>" required>
