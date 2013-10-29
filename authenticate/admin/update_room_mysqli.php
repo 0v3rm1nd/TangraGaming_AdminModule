@@ -25,7 +25,6 @@ if (isset($_GET['name']) && !$_POST) {
 if (isset($_POST['update'])) {
     $roomname = trim($_POST['roomname']);
     $oldroomname =trim($_POST['oldroomname']);
-    $owner = trim($_POST['owner']);
     $parentroom = trim($_POST['parentroom']);
     $public = trim($_POST['public']);
     require_once('../../includes/admin/room/update_room_mysqli.inc.php');

@@ -4,6 +4,8 @@
       <ul>
          <li><a href='../../authenticate/admin/create_user.php'><span>Create User</span></a></li>
          <li><a href='../../authenticate/admin/alter_user.php'><span>Alter User</span></a></li>
+         <li><a href='../../authenticate/admin/view_friendlist.php'><span>Friend List</span></a></li>
+         <li><a href='../../authenticate/admin/view_friendrequests.php'><span>Friend Requests</span></a></li>
          <li class='last'><a href='#'><span>User Statistics</span></a></li>
       </ul>
    </li>
@@ -11,7 +13,9 @@
       <ul>
          <li><a href='../../authenticate/admin/create_room.php'><span>Create Room</span></a></li>
          <li><a href='../../authenticate/admin/alter_room.php'><span>Alter Room</span></a></li>
-         <li class='last'><a href='#'><span>Room Statistics</span></a></li>
+         <li><a href='../../authenticate/admin/view_userroomlist.php'><span>Room Membership List</span></a></li>
+         <li><a href='../../authenticate/admin/view_roominvites.php'><span>Room Invite List</span></a></li>
+        <li class='last'><a href='#'><span>Room Statistics</span></a></li>
       </ul>
    </li>
    <li class='active'><a href='../../authenticate/admin/admin_home.php'><span>Main Room Management</span></a>
