@@ -24,7 +24,7 @@ if (isset($_GET['name']) && !$_POST) {
 // if form has been submitted, update record
 if (isset($_POST['update'])) {
     $roomname = trim($_POST['roomname']);
-    $oldroomname =trim($_POST['oldroomname']);
+    $oldroomname = trim($_POST['oldroomname']);
     $parentroom = trim($_POST['parentroom']);
     $public = trim($_POST['public']);
     require_once('../../includes/admin/room/update_room_mysqli.inc.php');
@@ -73,7 +73,7 @@ if (isset($_POST['update'])) {
                                 <form id="form1" method="post" action="">
 
                                     <p id="email">
-                                        The owner of a room can not be changed: <?php echo "$owner" ; ?></br>
+                                        The owner of a room can not be changed: <?php echo "$owner"; ?></br>
                                         Last Update: <?php echo "$dateupdated"; ?>
                                     </p>
 
@@ -86,8 +86,22 @@ if (isset($_POST['update'])) {
                                         <input type="text" name="roomname" id="roomanme" value="<?php echo htmlentities($roomname, ENT_COMPAT, 'utf-8'); ?>" required>
                                     </p>
                                     <p>
-                                        <label for="parentroom" class="parentroom" > Update parent room </label>
-                                        <input type="text" name="parentroom" id="parentroom" value="<?php echo htmlentities($parentroom, ENT_COMPAT, 'utf-8'); ?>" required>
+                                        <label for="parentroom" class="parentroom" > Update parent room </label></br>
+                                        
+                                        <!-- Get mainroom names from the mysql db and populate the select -->
+                                        <?php
+                                        $conn = dbConnect('write');
+                                        // prepare the SQL query
+                                        $sql = "SELECT name FROM mainroom";
+                                        // submit the query and capture the result
+                                        $result = $conn->query($sql) or die($conn->error);
+                                        echo "<select name='parentroom'>";
+                                        while ($row = $result->fetch_assoc()) {
+                                            //must use ternary operator insread of if statement to make the default selected value to be the one of the selected room because if can not be put inside an echo 
+                                            echo "<option value='" . $row['name'] . "'".(($parentroom==$row['name'])?'selected="selected"':"").">" . $row['name'] . "</option>";
+                                        }
+                                        echo "</select>";
+                                        ?>
                                     </p>
                                     <p>
                                         <label for="public" class="public" > Public </label>

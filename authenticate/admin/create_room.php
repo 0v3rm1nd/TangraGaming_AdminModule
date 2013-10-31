@@ -4,10 +4,11 @@ if (isset($_POST['create'])) {
     $roomname = trim($_POST['roomname']);
     $mainroomname = trim($_POST['mainroom']);
     $public = trim($_POST['public']);
-    $owner=trim($_SESSION['authenticated']);
+    $owner = trim($_SESSION['authenticated']);
     require_once('../../includes/admin/room/create_room_mysqli.inc.php');
 }
 ?>
+
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -54,10 +55,25 @@ if (isset($_POST['create'])) {
                                         <label for="roomname" class="roomname" > Room Name</label>
                                         <input id="roomanme" name="roomname" required type="text" placeholder="Fill in room name">
                                     </p>
-                                    <p>
-                                        <label for="mainroom" class="mainroom" > Main Room </label>
-                                        <input type="text" name="mainroom" id="mainroom" required placeholder="Fill in mainroom name">
-                                    </p>
+
+                                    <!-- Get mainroom names from the mysql db and populate the select -->
+
+                                    <?php
+                                    require_once('../../includes/connection.inc.php');
+                                    // connect to MySQL
+                                    $conn = dbConnect('write');
+                                    // prepare the SQL query
+                                    $sql = "SELECT name FROM mainroom";
+                                    // submit the query and capture the result
+                                    $result = $conn->query($sql) or die($conn->error);
+                                    echo "<label for='mainroom' class='mainroom' > Main Room</label></br>
+                                        <select name='mainroom'>";
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
+                                    }
+                                    echo "</select>";
+                                    ?>
+
 
                                     <p>
                                         <label for="public" class="public" > Public/Private </label>

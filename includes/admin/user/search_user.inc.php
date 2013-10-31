@@ -3,8 +3,8 @@ require_once('../../includes/connection.inc.php');
 // connect to MySQL
 $conn = dbConnect('write');
 // set default values
-$col = 'email';
-$dir = 'ASC';
+$col = 'datecreated';
+$dir = 'DESC';
 // create arrays of permitted values
 $columns = array('email', 'nickname', 'lastlogin', 'datecreated', 'disabled');
 $direction = array('ASC', 'DESC');
@@ -15,9 +15,20 @@ if (isset($_GET['column']) && in_array($_GET['column'], $columns)) {
 if (isset($_GET['direction']) && in_array($_GET['direction'], $direction)) {
     $dir = $_GET['direction'];
 }
-// prepare the SQL query
+
+if (isset($_GET['go'])) {
+//search term for the search functionality
+    $searchterm = '%' . $conn->real_escape_string($_GET['search']) . '%';
+    $sql2 = "SELECT email, nickname, lastlogin, datecreated, disabled from user where email LIKE '$searchterm' OR nickname LIKE '$searchterm' ORDER BY email ASC";
+    $result2 = $conn->query($sql2) or die($conn->error);
+    $numRows = $result2->num_rows;
+}
+
+
+
+// prepare the SQL query for the order by functionality
 $sql = "SELECT email, nickname, lastlogin, datecreated, disabled FROM user
-        ORDER BY $col $dir";
+        ORDER BY $col $dir LIMIT 50" ;
 // submit the query and capture the result
 $result = $conn->query($sql) or die($conn->error);
 ?>
@@ -38,6 +49,25 @@ $result = $conn->query($sql) or die($conn->error);
     <input type="submit" name="change" id="go1" value="Search">
 </form>
 </br>
+
+
+<!--Search for a user based on an email/nickname-->
+<h3>
+    Specify the username to search for !
+</h3>
+
+<form id="form1" method="get" action="">
+    <input type="text" name="search" id="search"> 
+    <input type="submit" name="go" id="go" value="Search">
+</form>
+
+<?php if (isset($_GET['go'])) { ?>
+    <p>Number of results for <b><?php echo htmlentities($_GET['search'], ENT_COMPAT, 'utf-8'); ?></b>: <?php echo $numRows; ?></p>
+<?php } ?>
+
+
+
+
 </br>
 <div class="CSSTableGenerator" >
     <table>
@@ -51,16 +81,53 @@ $result = $conn->query($sql) or die($conn->error);
             <th></th>
         </tr>
 
-        <?php while ($row = $result->fetch_assoc()) { ?>
-            <tr>
-                <td><?php echo $row['email']; ?></td>
-                <td><?php echo $row['nickname']; ?></td>    
-                <td><?php echo $row['lastlogin']; ?></td>
-                <td><?php echo $row['datecreated']; ?></td>
-                <td><?php echo $row['disabled']; ?></td>
-                <td><a href="../../authenticate/admin/update_user_mysqli.php?email=<?php echo $row['email']; ?>">EDIT INFO</a></td>
-                <td><a href="../../authenticate/admin/reset_user_password.php?email=<?php echo $row['email']; ?>">RESET PASS</a></td>
-            </tr>
-        <?php } ?>
+        <?php
+        if (isset($_GET['go'])) {
+
+            while ($row = $result2->fetch_assoc()) {
+                ?>
+                <tr>
+                    <td><?php echo $row['email']; ?></td>
+                    <td><?php echo $row['nickname']; ?></td>    
+                    <td><?php echo $row['lastlogin']; ?></td>
+                    <td><?php echo $row['datecreated']; ?></td>
+                    <td><?php echo $row['disabled']; ?></td>
+                    <td><a href="../../authenticate/admin/update_user_mysqli.php?email=<?php echo $row['email']; ?>">EDIT INFO</a></td>
+                    <td><a href="../../authenticate/admin/reset_user_password.php?email=<?php echo $row['email']; ?>">RESET PASS</a></td>
+                </tr>
+
+
+            <?php
+            }
+        } elseif (isset($_GET['column'])) {
+
+            while ($row = $result->fetch_assoc()) {
+                ?>
+                <tr>
+                    <td><?php echo $row['email']; ?></td>
+                    <td><?php echo $row['nickname']; ?></td>    
+                    <td><?php echo $row['lastlogin']; ?></td>
+                    <td><?php echo $row['datecreated']; ?></td>
+                    <td><?php echo $row['disabled']; ?></td>
+                    <td><a href="../../authenticate/admin/update_user_mysqli.php?email=<?php echo $row['email']; ?>">EDIT INFO</a></td>
+                    <td><a href="../../authenticate/admin/reset_user_password.php?email=<?php echo $row['email']; ?>">RESET PASS</a></td>
+                </tr>
+    <?php
+    }
+} else {
+    while ($row = $result->fetch_assoc()) {
+        ?>
+                <tr>
+                    <td><?php echo $row['email']; ?></td>
+                    <td><?php echo $row['nickname']; ?></td>    
+                    <td><?php echo $row['lastlogin']; ?></td>
+                    <td><?php echo $row['datecreated']; ?></td>
+                    <td><?php echo $row['disabled']; ?></td>
+                    <td><a href="../../authenticate/admin/update_user_mysqli.php?email=<?php echo $row['email']; ?>">EDIT INFO</a></td>
+                    <td><a href="../../authenticate/admin/reset_user_password.php?email=<?php echo $row['email']; ?>">RESET PASS</a></td>
+                </tr>
+    <?php }
+}
+?>
     </table>
 </div>
