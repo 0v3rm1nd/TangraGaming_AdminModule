@@ -67,8 +67,8 @@ if (isset($stmt) && !$OK && !$deleted) {
                                     echo "<p class='warning'>Error: $error</p>";
                                 }
                                 ?>
-                                <p>Please confirm that you want to delete the following room membership record. This action cannot be undone.</p>
-                                <p id="email"><?php echo "User: " . htmlentities($_GET['user'], ENT_COMPAT, 'utf-8') . " is a member of Room:" . htmlentities($_GET['room'], ENT_COMPAT, 'utf-8'); ?></p>
+                                <p>Please confirm that you want to delete this record. This action cannot be undone.</p>
+                                <p id="email"><?php echo "User:" . htmlentities($_GET['user'], ENT_COMPAT, 'utf-8') . " is a member of Room:" . htmlentities($_GET['room'], ENT_COMPAT, 'utf-8'); ?></p>
                                 <form id="form1" method="post" action="">
                                     <p class="login button">
                                         <?php if (isset($_GET['user']) && isset($_GET['room'])) { ?>

@@ -21,7 +21,7 @@ require_once('../../includes/session_timeout_db.inc.php');
                     Friend List
                 </h1>
                 <h3>
-                   List of current friends:
+                   Get the last 100 records based on:
                 </h3>
                 <?php
                 require_once('../../includes/admin/user/search_friendlist.inc.php');

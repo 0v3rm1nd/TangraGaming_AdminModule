@@ -67,8 +67,8 @@ if (isset($stmt) && !$OK && !$deleted) {
                                     echo "<p class='warning'>Error: $error</p>";
                                 }
                                 ?>
-                                <p>Please confirm that you want to delete the following friend record. This action cannot be undone.</p>
-                                <p id="email"><?php echo "User1: " . htmlentities($_GET['user1'], ENT_COMPAT, 'utf-8') . " is a friend of User2:" . htmlentities($_GET['user2'], ENT_COMPAT, 'utf-8'); ?></p>
+                                <p>Please confirm that you want to delete this record. This action cannot be undone.</p>
+                                <p id="email"><?php echo "Friend1:" . htmlentities($_GET['user1'], ENT_COMPAT, 'utf-8') . " is a friend of Friend2:" . htmlentities($_GET['user2'], ENT_COMPAT, 'utf-8'); ?></p>
                                 <form id="form1" method="post" action="">
                                     <p class="login button">
                                         <?php if (isset($_GET['user1']) && isset($_GET['user2'])) { ?>

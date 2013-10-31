@@ -21,7 +21,7 @@ require_once('../../includes/session_timeout_db.inc.php');
                     Room Invitations
                 </h1>
                 <h3>
-                   List of current room invitations and their status:
+                  Get the last 100 records and their status based on:
                 </h3>
                 <?php
                 require_once('../../includes/admin/room/search_userroomreqlist.inc.php');

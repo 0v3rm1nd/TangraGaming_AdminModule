@@ -4,7 +4,7 @@ require_once('../../includes/connection.inc.php');
 $conn = dbConnect('write');
 // set default values
 $col = 'datecreated';
-$dir = 'ASC';
+$dir = 'DESC';
 // create arrays of permitted values
 $columns = array('from', 'to', 'status', 'datecreated', 'dateupdated');
 $direction = array('ASC', 'DESC');
@@ -15,9 +15,16 @@ if (isset($_GET['column']) && in_array($_GET['column'], $columns)) {
 if (isset($_GET['direction']) && in_array($_GET['direction'], $direction)) {
     $dir = $_GET['direction'];
 }
+if (isset($_GET['go'])) {
+//prepare search term for the search functionality
+    $searchterm = '%' . $conn->real_escape_string($_GET['search']) . '%';
+    $sql2 = "SELECT friendreq.from, friendreq.to, status, datecreated, dateupdated FROM friendreq WHERE friendreq.from LIKE '$searchterm' OR friendreq.to LIKE '$searchterm' ORDER BY datecreated DESC";
+    $result2 = $conn->query($sql2) or die($conn->error);
+    $numRows = $result2->num_rows;
+}
 // prepare the SQL query
 $sql = "SELECT friendreq.from, friendreq.to, status, datecreated, dateupdated FROM friendreq
-        ORDER BY friendreq.$col $dir";
+        ORDER BY friendreq.$col $dir LIMIT 100";
 // submit the query and capture the result
 $result = $conn->query($sql) or die($conn->error);
 ?>
@@ -38,7 +45,18 @@ $result = $conn->query($sql) or die($conn->error);
     <input type="submit" name="change" id="go1" value="Search">
 </form>
 </br>
-</br>
+<!--Search for a friend request on a from/to user-->
+<h3>
+    Otherwise specify a user email to search for: 
+</h3>
+
+<form id="form1" method="get" action="">
+    <input type="text" name="search" id="search"> 
+    <input type="submit" name="go" id="go" value="Search">
+</form>
+<?php if (isset($_GET['go'])) { ?>
+    <p>Number of results for <b><?php echo htmlentities($_GET['search'], ENT_COMPAT, 'utf-8'); ?></b>: <?php echo $numRows; ?></p>
+<?php } ?>
 <div class="CSSTableGenerator" >
     <table>
         <tr>
@@ -47,18 +65,48 @@ $result = $conn->query($sql) or die($conn->error);
             <th>Status</th>
             <th>Date Created</th>
             <th>Date Updated</th>
-            <th></th>
         </tr>
 
-        <?php while ($row = $result->fetch_assoc()) { ?>
-            <tr>
-                <td><?php echo $row['from']; ?></td>
-                <td><?php echo $row['to']; ?></td>    
-                <td><?php echo $row['status']; ?></td>
-                <td><?php echo $row['datecreated']; ?></td>
-                <td><?php echo $row['dateupdated']; ?></td>
-                <td><a href="../../authenticate/admin/delete_friendreqrecord_mysqli.inc.php?user1=<?php echo $row['user1'] . "&user2=" . $row['user2']; ?>">Delete Record</a></td>
-            </tr>
-        <?php } ?>
+        <?php
+        if (isset($_GET['go'])) {
+
+            while ($row = $result2->fetch_assoc()) {
+                ?>
+                <tr>
+                    <td><?php echo $row['from']; ?></td>
+                    <td><?php echo $row['to']; ?></td>    
+                    <td><?php echo $row['status']; ?></td>
+                    <td><?php echo $row['datecreated']; ?></td>
+                    <td><?php echo $row['dateupdated']; ?></td>
+                </tr>
+                <?php
+            }
+        } elseif (isset($_GET['column'])) {
+
+            while ($row = $result->fetch_assoc()) {
+                ?>
+                <tr>
+                    <td><?php echo $row['from']; ?></td>
+                    <td><?php echo $row['to']; ?></td>    
+                    <td><?php echo $row['status']; ?></td>
+                    <td><?php echo $row['datecreated']; ?></td>
+                    <td><?php echo $row['dateupdated']; ?></td>
+                </tr>
+                <?php
+            }
+        } else {
+            while ($row = $result->fetch_assoc()) {
+                ?>
+                <tr>
+                    <td><?php echo $row['from']; ?></td>
+                    <td><?php echo $row['to']; ?></td>    
+                    <td><?php echo $row['status']; ?></td>
+                    <td><?php echo $row['datecreated']; ?></td>
+                    <td><?php echo $row['dateupdated']; ?></td>
+                </tr>
+                <?php
+            }
+        }
+        ?>
     </table>
 </div>

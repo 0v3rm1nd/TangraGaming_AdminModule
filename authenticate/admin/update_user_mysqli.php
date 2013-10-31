@@ -23,7 +23,7 @@ if (isset($_GET['email']) && !$_POST) {
 }
 // if form has been submitted, update record
 if (isset($_POST['update'])) {
-    $email = trim($_POST['email']);
+    $email = trim($_GET['email']);
     $nickname = trim($_POST['nickname']);
     $name = trim($_POST['name']);
     $signature = trim($_POST['signature']);
@@ -78,11 +78,6 @@ if (isset($_POST['update'])) {
                                         Email can not be changed:<?php echo htmlentities($email, ENT_COMPAT, 'utf-8'); ?></br>
                                         Last Update: <?php echo "$dateupdated"; ?>
                                     </p>
-
-                                    <p>
-                                        <input type="hidden" name="email" id="email" value="<?php echo htmlentities($email, ENT_COMPAT, 'utf-8'); ?>" required>
-                                    </p>
-
                                     <p>
                                         <label for="nickname" class="uname" data-icon="u" > Update user nickname </label>
                                         <input type="text" name="nickname" id="nickname" value="<?php echo htmlentities($nickname, ENT_COMPAT, 'utf-8'); ?>" required>

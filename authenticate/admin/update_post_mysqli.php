@@ -8,14 +8,14 @@ $conn = dbConnect('write');
 // initialize statement
 $stmt = $conn->stmt_init();
 // get details of selected record
-if (isset($_GET['name']) && !$_POST) {
+if (isset($_GET['user']) && isset($_GET['room']) && isset($_GET['datecreated']) && !$_POST) {
 // prepare SQL query
-    $sql = 'SELECT name, dateupdated FROM mainroom WHERE name = ?';
+    $sql = 'SELECT user, room, post, dateupdated FROM post WHERE user = ? AND room = ? AND datecreated = ?';
     if ($stmt->prepare($sql)) {
 // bind the query parameter
-        $stmt->bind_param('s', $_GET['name']);
+        $stmt->bind_param('sss', $_GET['user'], $_GET['room'], $_GET['datecreated']);
 // bind the results to variables
-        $stmt->bind_result($mainroomname, $dateupdated);
+        $stmt->bind_result($user, $room, $post, $dateupdated);
 // execute the query, and fetch the result
         $OK = $stmt->execute();
         $stmt->fetch();
@@ -23,16 +23,18 @@ if (isset($_GET['name']) && !$_POST) {
 }
 // if form has been submitted, update record
 if (isset($_POST['update'])) {
-    $mainroomname = trim($_POST['mainroomname']);
-    $oldmainroomname = trim($_GET['name']);
-    require_once('../../includes/admin/mainroom/update_mainroom_mysqli.inc.php');
+    $post = $_POST['post'];
+    $user = $_GET['user'];
+    $room = $_GET['room'];
+    $datecreated = $_GET['datecreated'];
+    require_once('../../includes/admin/posts/update_post_mysqli.inc.php');
 }
 ?>
 <!DOCTYPE HTML>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Tangra Update Main Room</title>
+        <title>Tangra Update Posts</title>
         <link href="../../style.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="../../css/formcss/style.css" />
         <link rel="stylesheet" type="text/css" href="../../css/formcss/demo.css" />
@@ -47,7 +49,7 @@ if (isset($_POST['update'])) {
                 <?php include('../../includes/menu.inc.php'); ?>
             </div>
 
-            <!-- UpdateMainRoomForm -->
+            <!-- UpdatePosts -->
             <div class="container">
 
                 <section>				
@@ -56,10 +58,10 @@ if (isset($_POST['update'])) {
                         <div id="wrapper">
 
                             <div id="login" class="animate form">
-                                <h1>Update Main Room</h1>
+                                <h1>Update Posts</h1>
                                 <?php
                                 if (isset($success)) {
-                                    header('Location: ../admin/alter_mainroom.php');
+                                    header('Location: ../admin/view_posts.php');
                                 } elseif (isset($errors) && !empty($errors)) {
                                     echo '<p><ul>';
                                     foreach ($errors as $error) {
@@ -69,15 +71,14 @@ if (isset($_POST['update'])) {
                                 }
                                 ?>
                                 <form id="form1" method="post" action="">
-                                    
+
                                     <p id="email">
-                           
+                                        User:<?php echo "$user"; ?> made this post in room: <?php echo "$room"; ?></br>
                                         Last Update: <?php echo "$dateupdated"; ?>
                                     </p>
-
                                     <p>
-                                        <label for="mainroomname" class="mainroomname" > Update main room name </label>
-                                        <input type="text" name="mainroomname" id="nickname" value="<?php echo htmlentities($mainroomname, ENT_COMPAT, 'utf-8'); ?>" required>
+                                        <label for="post" class="post" > Update post content </label>
+                                        <input type="text" name="post" id="post" value="<?php echo htmlentities($post, ENT_COMPAT, 'utf-8'); ?>" required>
                                     </p>
 
                                     <p class="login button">

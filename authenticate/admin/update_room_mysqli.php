@@ -24,7 +24,7 @@ if (isset($_GET['name']) && !$_POST) {
 // if form has been submitted, update record
 if (isset($_POST['update'])) {
     $roomname = trim($_POST['roomname']);
-    $oldroomname = trim($_POST['oldroomname']);
+    $oldroomname = trim($_GET['name']);
     $parentroom = trim($_POST['parentroom']);
     $public = trim($_POST['public']);
     require_once('../../includes/admin/room/update_room_mysqli.inc.php');
@@ -76,11 +76,6 @@ if (isset($_POST['update'])) {
                                         The owner of a room can not be changed: <?php echo "$owner"; ?></br>
                                         Last Update: <?php echo "$dateupdated"; ?>
                                     </p>
-
-                                    <p>
-                                        <input type="hidden" name="oldroomname" id="oldroomname" value="<?php echo htmlentities($roomname, ENT_COMPAT, 'utf-8'); ?>" required>
-                                    </p>
-
                                     <p>
                                         <label for="roomname" class="roomname" > Update room name </label>
                                         <input type="text" name="roomname" id="roomanme" value="<?php echo htmlentities($roomname, ENT_COMPAT, 'utf-8'); ?>" required>

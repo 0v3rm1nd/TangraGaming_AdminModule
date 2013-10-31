@@ -21,7 +21,7 @@ require_once('../../includes/session_timeout_db.inc.php');
                     View Posts
                 </h1>
                 <h3>
-                   List of posts based on a user/room:
+                   Get the last 100 posts based on:
                 </h3>
                 <?php
                 require_once('../../includes/admin/posts/search_posts.inc.php');

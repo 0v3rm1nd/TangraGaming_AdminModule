@@ -5,7 +5,7 @@ require_once('../../includes/session_timeout_db.inc.php');
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Tangra Friend Request List</title>
+        <title>Tangra Friend Request Status List</title>
         <link rel="stylesheet" type="text/css" href="../../style.css" />
     </head>
     <body>
@@ -18,10 +18,10 @@ require_once('../../includes/session_timeout_db.inc.php');
             </div>
             <div id="maincontent">
                 <h1>
-                    Friend Request List
+                    Friend Request Status List
                 </h1>
                 <h3>
-                   List of current friend requests:
+                   Get the last 100 records based on:
                 </h3>
                 <?php
                 require_once('../../includes/admin/user/search_friendrequests.inc.php');

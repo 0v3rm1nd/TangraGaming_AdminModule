@@ -21,7 +21,7 @@ require_once('../../includes/session_timeout_db.inc.php');
                     Room Membership List
                 </h1>
                 <h3>
-                   List of current room membership:
+                   Get the last 100 records based on:
                 </h3>
                 <?php
                 require_once('../../includes/admin/room/search_userroomlist.inc.php');

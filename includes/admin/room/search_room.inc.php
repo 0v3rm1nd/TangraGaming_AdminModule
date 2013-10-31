@@ -3,8 +3,8 @@ require_once('../../includes/connection.inc.php');
 // connect to MySQL
 $conn = dbConnect('write');
 // set default values
-$col = 'name';
-$dir = 'ASC';
+$col = 'datecreated';
+$dir = 'DESC';
 // create arrays of permitted values
 $columns = array('name', 'owner', 'parentroom', 'public', 'datecreated');
 $direction = array('ASC', 'DESC');
@@ -15,9 +15,16 @@ if (isset($_GET['column']) && in_array($_GET['column'], $columns)) {
 if (isset($_GET['direction']) && in_array($_GET['direction'], $direction)) {
     $dir = $_GET['direction'];
 }
+if (isset($_GET['go'])) {
+//prepare search term for the search functionality
+    $searchterm = '%' . $conn->real_escape_string($_GET['search']) . '%';
+    $sql2 = "SELECT name, owner, parentroom, public, datecreated FROM room WHERE name LIKE '$searchterm' OR owner LIKE '$searchterm' OR parentroom LIKE '$searchterm' ORDER BY datecreated DESC";
+    $result2 = $conn->query($sql2) or die($conn->error);
+    $numRows = $result2->num_rows;
+}
 // prepare the SQL query
 $sql = "SELECT name, owner, parentroom, public, datecreated FROM room
-        ORDER BY $col $dir";
+        ORDER BY $col $dir LIMIT 100";
 // submit the query and capture the result
 $result = $conn->query($sql) or die($conn->error);
 ?>
@@ -38,7 +45,19 @@ $result = $conn->query($sql) or die($conn->error);
     <input type="submit" name="change" id="go1" value="Search">
 </form>
 </br>
-</br>
+<!--Search for a room based on an name/owner/parent-->
+<h3>
+    Otherwise specify the room name/owner/parent room to search for: 
+</h3>
+
+<form id="form1" method="get" action="">
+    <input type="text" name="search" id="search"> 
+    <input type="submit" name="go" id="go" value="Search">
+</form>
+
+<?php if (isset($_GET['go'])) { ?>
+    <p>Number of results for <b><?php echo htmlentities($_GET['search'], ENT_COMPAT, 'utf-8'); ?></b>: <?php echo $numRows; ?></p>
+<?php } ?>
 <div class="CSSTableGenerator" >
     <table>
         <tr>
@@ -51,16 +70,52 @@ $result = $conn->query($sql) or die($conn->error);
             <th></th>
         </tr>
 
-        <?php while ($row = $result->fetch_assoc()) { ?>
-            <tr>
-                <td><?php echo $row['name']; ?></td>
-                <td><?php echo $row['owner']; ?></td>    
-                <td><?php echo $row['parentroom']; ?></td>
-                <td><?php echo $row['public']; ?></td>
-                <td><?php echo $row['datecreated']; ?></td>
-                <td><a href="../../authenticate/admin/update_room_mysqli.php?name=<?php echo $row['name']; ?>">EDIT INFO</a></td>
-                <td><a href="../../authenticate/admin/update_room_mysqli.php?name=<?php echo $row['name']; ?>">DELETE</a></td>
-            </tr>
-        <?php } ?>
+        <?php
+        if (isset($_GET['go'])) {
+
+            while ($row = $result2->fetch_assoc()) {
+                ?>
+                <tr>
+                    <td><?php echo $row['name']; ?></td>
+                    <td><?php echo $row['owner']; ?></td>    
+                    <td><?php echo $row['parentroom']; ?></td>
+                    <td><?php echo $row['public']; ?></td>
+                    <td><?php echo $row['datecreated']; ?></td>
+                    <td><a href="../../authenticate/admin/update_room_mysqli.php?name=<?php echo $row['name']; ?>">EDIT INFO</a></td>
+                    <td><a href="../../authenticate/admin/update_room_mysqli.php?name=<?php echo $row['name']; ?>">DELETE</a></td>
+                </tr>
+                <?php
+            }
+        } elseif (isset($_GET['column'])) {
+
+            while ($row = $result->fetch_assoc()) {
+                ?>
+                <tr>
+                    <td><?php echo $row['name']; ?></td>
+                    <td><?php echo $row['owner']; ?></td>    
+                    <td><?php echo $row['parentroom']; ?></td>
+                    <td><?php echo $row['public']; ?></td>
+                    <td><?php echo $row['datecreated']; ?></td>
+                    <td><a href="../../authenticate/admin/update_room_mysqli.php?name=<?php echo $row['name']; ?>">EDIT INFO</a></td>
+                    <td><a href="../../authenticate/admin/update_room_mysqli.php?name=<?php echo $row['name']; ?>">DELETE</a></td>
+                </tr>
+                <?php
+            }
+        } else {
+            while ($row = $result->fetch_assoc()) {
+                ?>
+                <tr>
+                    <td><?php echo $row['name']; ?></td>
+                    <td><?php echo $row['owner']; ?></td>    
+                    <td><?php echo $row['parentroom']; ?></td>
+                    <td><?php echo $row['public']; ?></td>
+                    <td><?php echo $row['datecreated']; ?></td>
+                    <td><a href="../../authenticate/admin/update_room_mysqli.php?name=<?php echo $row['name']; ?>">EDIT INFO</a></td>
+                    <td><a href="../../authenticate/admin/update_room_mysqli.php?name=<?php echo $row['name']; ?>">DELETE</a></td>
+                </tr>
+                <?php
+            }
+        }
+        ?>
     </table>
 </div>

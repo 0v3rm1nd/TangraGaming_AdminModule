@@ -21,7 +21,7 @@ require_once('../../includes/session_timeout_db.inc.php');
                     Alter Users
                 </h1>
                 <h3>
-                    List of users:
+                    Get the last 100 records based on:
                 </h3>
                 <?php
                 require_once('../../includes/admin/user/search_user.inc.php');
