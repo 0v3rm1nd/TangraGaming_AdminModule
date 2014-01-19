@@ -21,15 +21,16 @@ require_once('../../includes/session_timeout_db.inc.php');
 <?php include('../../includes/menu.inc.php'); ?>
 </div>
 
-<div id="content">
-<p>
-      Guild Wars 2 claims to be unique in the genre by featuring a storyline that is responsive to player actions, something which is common in single player role-playing games but rarely (if ever) seen in multiplayer ones. A dynamic event system replaces traditional questing, utilising the ripple effect to allow players to approach quests in different ways as part of a persistent world. Also of note is the combat system, which aims to be more dynamic than its predecessor by promoting synergy between professions and using the environment as a weapon, as well as reducing the complexity of the Magic-style skill system of the original game. As a sequel to Guild Wars, Guild Wars 2 will feature the same lack of subscription fees that distinguished its predecessor from other commercially developed online games of the time
-</p>
-<p>
-      Guild Wars 2 claims to be unique in the genre by featuring a storyline that is responsive to player actions, something which is common in single player role-playing games but rarely (if ever) seen in multiplayer ones. A dynamic event system replaces traditional questing, utilising the ripple effect to allow players to approach quests in different ways as part of a persistent world. Also of note is the combat system, which aims to be more dynamic than its predecessor by promoting synergy between professions and using the environment as a weapon, as well as reducing the complexity of the Magic-style skill system of the original game. As a sequel to Guild Wars, Guild Wars 2 will feature the same lack of subscription fees that distinguished its predecessor from other commercially developed online games of the time
+<div id="maincontent">
+<p id='email'>
+Welcome to Tangra Gaming Admin Module! </br>
+</br>
+This system can be used to manage, monitor operations and view statistics about the Tangra Gaming App!</br>
+</br>
+Use the menu above to navigate through the admin module and operate with the various procedure!
 </p>
 </div>
-<?php include('../../includes/logout_db.inc.php'); ?>
+
 <div id="footer">
   <?php include('../../includes/footer.inc.php'); ?>
 </div>
